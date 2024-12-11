@@ -32,7 +32,7 @@ public abstract class RotatingSystem : MonoBehaviour
         float torque = Efector.Torque;
         if (!isJoint)
         {
-            float reduction = (float)Efector.Cogs / (float)Reciever.Cogs; 
+            float reduction = (float)Efector.Cogs / (float)Reciever.Cogs;
             reduction *= -1; // -- make it a substractor.
             speed *= reduction;
             torque /= reduction;

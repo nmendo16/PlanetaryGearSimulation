@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlanetarySystem : GearSystem
@@ -14,6 +15,7 @@ public class PlanetarySystem : GearSystem
     [SerializeField]
     private PlanetarySystemElement ringGear;
 
+
     [Header("Settings")]
     [SerializeField]
     [Range(4, 40)]
@@ -26,11 +28,11 @@ public class PlanetarySystem : GearSystem
 
     public bool IsRingGearLocked { get { return isRingGearLocked; } }
 
+
     private void Start()
     {
         GenerateSystem();
         LockRingGear(isRingGearLocked);
-        
     }
     public void GenerateSystem()
     {
@@ -55,7 +57,7 @@ public class PlanetarySystem : GearSystem
     {
         float combinedRadius = (sunGear.GetTotalRadius() + planetaryGears[0].GetBodyRadius());
         float hypothenuseMagnitude = Mathf.Sqrt(2 * (combinedRadius * combinedRadius)) / 2;
-        Vector3 firstQuadrantGear = new (0, combinedRadius, 0);
+        Vector3 firstQuadrantGear = new(0, combinedRadius, 0);
         Vector3 thirdQuadrantGear = new(-hypothenuseMagnitude, -hypothenuseMagnitude, 0);
         Vector3 fourthQuadrantGear = new(hypothenuseMagnitude, -hypothenuseMagnitude, 0);
         planetaryGears[0].transform.localPosition = firstQuadrantGear;

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3304740552117158052, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: m_Name
-      value: Driver (1) Variant
+      value: GeneratedRingGear
       objectReference: {fileID: 0}
     - target: {fileID: 4552357536729286549, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427730722730def4c89361661473662f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  n_teeth: 8
-  t_cogBody: {fileID: 5662535651465131393, guid: 5bc7b72ea6c3cb34e8e70be3c5a321f5, type: 3}
-  t_cogTeeth: {fileID: 3474449725853191684, guid: 373c8abf44a5f9a4c89a91f892970573, type: 3}
+  n_cogs: 0
+  obj_gear: {fileID: 5662535651465131393, guid: 5bc7b72ea6c3cb34e8e70be3c5a321f5, type: 3}
+  obj_cog: {fileID: 3474449725853191684, guid: 373c8abf44a5f9a4c89a91f892970573, type: 3}
   outerRingRatio: 0.3

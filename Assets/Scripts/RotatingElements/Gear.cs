@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(GearGeneration))]
+[RequireComponent(typeof(GearGenerator))]
 public class Gear : RotatingElement
 {
-    private GearGeneration genGear;
+    private GearGenerator genGear;
     [SerializeField]
     private Material defaultMaterial;
 
     protected void Awake()
     {
-        genGear = GetComponent<GearGeneration>();
+        genGear = GetComponent<GearGenerator>();
     }
 
     public float GetTotalRadius()

@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcff3dfcffd322747af8c477ba2b6096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  n_teeth: 8
-  t_cogBody: {fileID: 4670863410457253335, guid: 07fe09b7dc154c34086c04b2dfb6e773, type: 3}
-  t_cogTeeth: {fileID: 4071019060757081122, guid: 08474363f35425147a3efec78c66c464, type: 3}
+  n_cogs: 0
+  obj_gear: {fileID: 1064252656644922223, guid: 216b7b26973124e40a168b5529b492e4, type: 3}
+  obj_cog: {fileID: 4071019060757081122, guid: 08474363f35425147a3efec78c66c464, type: 3}
 --- !u!114 &1593680481748760066
 MonoBehaviour:
   m_ObjectHideFlags: 0

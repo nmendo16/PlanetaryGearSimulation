@@ -4,38 +4,38 @@ using UnityEngine;
 using UnityEditor;
 
 
-[CustomEditor(typeof(GearGeneration), true)]
+[CustomEditor(typeof(GearGenerator), true)]
 [CanEditMultipleObjects]
-public class GearGenerationEditor : Editor
+public class GearGeneratorEditor : Editor
 {
     SerializedProperty noTeeth, cogBody, cogTeeth, outerRingRatio;
     private void OnEnable()
     {
-        noTeeth = serializedObject.FindProperty("n_teeth");
-        cogBody = serializedObject.FindProperty("t_cogBody");
-        cogTeeth = serializedObject.FindProperty("t_cogTeeth");
+        noTeeth = serializedObject.FindProperty("n_cogs");
+        cogBody = serializedObject.FindProperty("obj_gear");
+        cogTeeth = serializedObject.FindProperty("obj_cog");
     }
     public override void OnInspectorGUI()
     {
-        GearGeneration gearGeneration = (GearGeneration)target;
-        EditorGUILayout.PropertyField(noTeeth, new GUIContent("Number of Teeth"));
-        EditorGUILayout.PropertyField( cogBody, new GUIContent("Gear's Body Template"));
-        EditorGUILayout.PropertyField( cogTeeth, new GUIContent("Gear's Teeth Template"));
-        if (gearGeneration is RingGearGeneration)
+        GearGenerator GearGenerator = (GearGenerator)target;
+        EditorGUILayout.PropertyField(noTeeth, new GUIContent("Number of Cogs"));
+        EditorGUILayout.PropertyField(cogBody, new GUIContent("Gear's Body Template"));
+        EditorGUILayout.PropertyField(cogTeeth, new GUIContent("Cog Template"));
+        if (GearGenerator is RingGearGenerator)
         {
             outerRingRatio = serializedObject.FindProperty("outerRingRatio");
-            EditorGUILayout.PropertyField(outerRingRatio, new GUIContent("Ring Gear Outer Thiccness"));
+            EditorGUILayout.PropertyField(outerRingRatio, new GUIContent("Ring Gear Outer Thickness"));
         }
 
         if (GUILayout.Button("Generate Cog"))
         {
             if (AreInputsValid())
             {
-                gearGeneration.Generate();
+                GearGenerator.Generate();
             }
         }
         serializedObject.ApplyModifiedProperties();
-    } 
+    }
     private bool AreInputsValid()
     {
         if ((GameObject)cogBody.objectReferenceValue == null)

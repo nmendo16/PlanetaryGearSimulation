@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8494591746339677330}
   - component: {fileID: 5907788846515129257}
   m_Layer: 0
-  m_Name: Pipe
+  m_Name: Shape
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2568,7 +2568,7 @@ GameObject:
   - component: {fileID: 796273402972750448}
   - component: {fileID: 8220945309047311759}
   m_Layer: 0
-  m_Name: Pipe (1)
+  m_Name: Collider
   m_TagString: Gear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5151,7 +5151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8097133513791330567}
   m_Layer: 0
-  m_Name: RingGear
+  m_Name: RingGearBody
   m_TagString: RingGear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

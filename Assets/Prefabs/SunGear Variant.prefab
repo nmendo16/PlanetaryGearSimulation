@@ -21,9 +21,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2352306304045970958, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
+      propertyPath: n_cogs
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352306304045970958, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: n_teeth
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 2352306304045970958, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
+      propertyPath: obj_gear
+      value: 
+      objectReference: {fileID: 4670863410457253335, guid: 07fe09b7dc154c34086c04b2dfb6e773, type: 3}
     - target: {fileID: 3304740552117158052, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: m_Name
       value: SunGear Variant

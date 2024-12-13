@@ -70,6 +70,7 @@ public class PlanetarySystem : GearSystem
             this.ringGear.LockRotation = true;
             this.planetaryGears[0].AddNeighbor(planetaryAxis);
             this.ringGear.RemoveNeighbor(this.planetaryGears[0]);
+            StopSystem();
         }
         else
         {
@@ -79,9 +80,19 @@ public class PlanetarySystem : GearSystem
                 this.ringGear.LockRotation = false;
                 this.planetaryGears[0].RemoveNeighbor(planetaryAxis);
                 this.ringGear.AddNeighbor(this.planetaryGears[0]);
+                StopSystem();
             }
         }
     }
+    protected override void Update()
+    {
+        if (!isRingGearLocked || this.drivingGear != ringGear)
+        {
+            float xAxis = Input.GetAxis("Horizontal");
+            SetSystemSpeed(xAxis);
+        }
+    }
+
     /***
     <summary>
         Changes the material of a gear to symbolize selection. 

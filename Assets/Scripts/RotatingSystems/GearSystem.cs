@@ -5,7 +5,7 @@ normalized user input (0 - 1).
 using UnityEngine;
 public class GearSystem : RotatingSystem
 {
-    private void Update()
+    protected virtual void Update()
     {
         float xAxis = Input.GetAxis("Horizontal");
         SetSystemSpeed(xAxis);

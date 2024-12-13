@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-[RequireComponent(typeof(GearGenerator))]
+[RequireComponent(typeof(PlanetGearGenerator))]
 public class Gear : RotatingElement
 {
-    private GearGenerator genGear;
+    private PlanetGearGenerator genGear;
     [SerializeField]
     private Material defaultMaterial;
 
     protected void Awake()
     {
-        genGear = GetComponent<GearGenerator>();
+        genGear = GetComponent<PlanetGearGenerator>();
     }
 
     public float GetTotalRadius()
@@ -47,6 +48,35 @@ public class Gear : RotatingElement
         foreach (MeshRenderer mr in genGear.GetMeshRenderers())
         {
             mr.material = defaultMaterial;
+        }
+    }
+    public void SetLayerAll(string layerName)
+    {
+        SetLayerAll(gameObject, layerName);
+    }
+    public void SetLayerAll(GameObject obj, string layerName)
+    {
+        int layer = -1;
+        if (obj.CompareTag("CogMesh"))
+        {
+            layer = LayerMask.NameToLayer(layerName + "Cog");
+        }
+        else if (obj.CompareTag("RingMesh"))
+        {
+            layer = LayerMask.NameToLayer(layerName + "Ring");
+        }
+        else
+        {
+            layer = LayerMask.NameToLayer(layerName);
+        }
+        if (layer < 0) layer = 0;
+        obj.layer = layer;
+        if (obj.transform.childCount > 0)
+        {
+            foreach (Transform child in obj.transform)
+            {
+                SetLayerAll(child.gameObject, layerName);
+            }
         }
     }
     public void DeleteGeneratedModel()

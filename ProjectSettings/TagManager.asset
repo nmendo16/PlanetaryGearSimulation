@@ -7,6 +7,8 @@ TagManager:
   - Gear
   - RingGear
   - GearGroup
+  - CogMesh
+  - RingMesh
   layers:
   - Default
   - TransparentFX
@@ -14,9 +16,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Outlined
+  - OutlinedRing
+  - OutlinedCog
   - 
   - 
   - 

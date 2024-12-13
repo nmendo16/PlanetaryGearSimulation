@@ -1,28 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Material selectMaterial;
+    private string outlinesLayerName = "Outlined";
+    [Tooltip("Name of the Layer which gives an outline to a 3d object. ")]
+    [SerializeField]
+    private string defaultLayerName = "Default";
+    [Tooltip("Name of the default layer that all objects use. ")]
     [SerializeField]
     private GearSystem gearSystem;
     [SerializeField]
     private UIVisuals visuals;
-
+    [Header("Debug Information.")]
+    [SerializeField]
     private PlanetarySystemElement currentSelected;
     private Gear otherSelected;
+    [SerializeField]
     private bool isGroupSelected = false;
+    [SerializeField]
     private bool lockOthersPanel = false;
+    [SerializeField]
     private bool isHovering = false;
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Input.GetButtonDown("Click"))
         {
             if (EventSystem.current.IsPointerOverGameObject()) return;
@@ -53,7 +58,7 @@ public class UIManager : MonoBehaviour
                     {
                         if (currentSelected != element)
                         {
-                            currentSelected.ResetMaterial();
+                            currentSelected.SetLayerAll(defaultLayerName);
                             currentSelected = element;
                             SelectGroup();
                         }
@@ -61,14 +66,9 @@ public class UIManager : MonoBehaviour
                         {
                             if (isGroupSelected)
                             {
-                                if (gearSystem is PlanetarySystem pis)
+                                if (gearSystem is PlanetarySystem ps)
                                 {
-                                    pis.SelectPlanetGearGroup(selectMaterial, true);
-                                    element.SetMaterial(selectMaterial);
-                                    isGroupSelected = false;
-                                    gearSystem.SetDriverRotator(element);
-                                    visuals.DriverInformation(true, true, gearSystem.DriverSpeed, gearSystem.DriverTorque);
-                                    visuals.SetCogsInformation(currentSelected.Cogs, 1);
+                                    SelectSingleGear(element);
                                 }
                             }
                         }
@@ -104,37 +104,39 @@ public class UIManager : MonoBehaviour
         }
 
     }
-    private void SelectSingleGear(PlanetarySystemElement element)
+    private void SelectSingleGear(PlanetarySystemElement toBeSelected)
     {
         if (currentSelected != null)
         {
-            if (currentSelected != element)
+            // we need to do this check because we don­'t want two gears to be selected at a time, so we deselect the previously selected gear. 
+            if (currentSelected != toBeSelected || isGroupSelected)
             {
+                gearSystem.StopSystem(); // -- its better to reset the speed everytime there's a switch in gears.
                 if (isGroupSelected)
                 {
-                    if (gearSystem is PlanetarySystem pis)
+                    if (gearSystem is PlanetarySystem ps)
                     {
-                        pis.SelectPlanetGearGroup(selectMaterial, true);
+                        ps.VisuallySelectPlanetGroup(defaultLayerName);
                         isGroupSelected = false;
-
                     }
                 }
                 else
                 {
-                    currentSelected.ResetMaterial();
+                    currentSelected.SetLayerAll(defaultLayerName);
                 }
-                element.SetMaterial(selectMaterial);
-                currentSelected = element;
-                gearSystem.SetDriverRotator(element);
+                toBeSelected.SetLayerAll(outlinesLayerName);
+                currentSelected = toBeSelected;
+                gearSystem.SetDriverRotator(toBeSelected);
             }
         }
         else
         {
-            currentSelected = element;
-            element.SetMaterial(selectMaterial);
-            gearSystem.SetDriverRotator(element);
+            currentSelected = toBeSelected;
+            toBeSelected.SetLayerAll(outlinesLayerName);
+            gearSystem.SetDriverRotator(toBeSelected);
         }
-        if (element.gearType == GearTypePlSystem.RingGear && gearSystem is PlanetarySystem sys)
+        // after visually selecting the gear (by adding outlines), we need to see if we need to activate special UIs.
+        if (toBeSelected.gearType == GearTypePlSystem.RingGear && gearSystem is PlanetarySystem sys)
         {
             visuals.DriverInformation(true, false, gearSystem.DriverSpeed, gearSystem.DriverTorque);
             visuals.ActivateExtraRingGearInfo(sys.IsRingGearLocked);
@@ -147,17 +149,18 @@ public class UIManager : MonoBehaviour
     }
     public void ChangeCogsInGear()
     {
-        if (gearSystem is PlanetarySystem sys)
+        if (gearSystem is PlanetarySystem ps)
         {
-            sys.RebuildSystem(currentSelected, visuals.SliderValue);
+            ps.RebuildSystem(currentSelected, visuals.SliderValue);
+            //When changing cogs, it rebuilds the system. This means we need to re-apply if the gear was previouslt selected.
             if (isGroupSelected)
             {
-                sys.SelectPlanetGearGroup(selectMaterial, false);
+                ps.VisuallySelectPlanetGroup(outlinesLayerName);
                 visuals.SetCogsInformation(currentSelected.Cogs, 3);
             }
             else
             {
-                currentSelected.SetMaterial(this.selectMaterial);
+                currentSelected.SetLayerAll(outlinesLayerName);
                 visuals.SetCogsInformation(currentSelected.Cogs, 1);
             }
         }
@@ -167,12 +170,12 @@ public class UIManager : MonoBehaviour
         isGroupSelected = true;
         if (gearSystem is PlanetarySystem ps)
         {
-            ps.SelectPlanetGearGroup(selectMaterial, false);
+            ps.VisuallySelectPlanetGroup(outlinesLayerName);
             ps.SetDriverRotator(ps.GetPlanetaryAxis());
         }
         visuals.DriverInformation(true, true, gearSystem.DriverSpeed, gearSystem.DriverTorque);
-        visuals.SetCogsInformation(currentSelected.Cogs,3);
-
+        visuals.SetCogsInformation(currentSelected.Cogs, 3);
+        gearSystem.StopSystem(); // -- its better to reset the speed everytime there's a switch in gears.
     }
     private void SelectNothing()
     {
@@ -182,14 +185,17 @@ public class UIManager : MonoBehaviour
             {
                 if (gearSystem is PlanetarySystem ps)
                 {
-                    ps.SelectPlanetGearGroup(selectMaterial, true);
+                    ps.VisuallySelectPlanetGroup(defaultLayerName);
                 }
             }
             else
-                currentSelected.ResetMaterial();
+                currentSelected.SetLayerAll(defaultLayerName);
+            gearSystem.StopSystem(); // -- its better to reset the speed everytime there's a switch in gears.
         }
         visuals.DriverInformation(false, false, gearSystem.DriverSpeed, gearSystem.DriverTorque);
         currentSelected = null;
+        isGroupSelected = false;
+        gearSystem.SetDriverRotator(null);
     }
     public void ChangeMaxSpeed()
     {

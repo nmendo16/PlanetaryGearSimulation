@@ -1,20 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+A gear system is a user-controlled rotating system which used its driver gear as the center of propagation according to a
+normalized user input (0 - 1).
+*/
 using UnityEngine;
-
 public class GearSystem : RotatingSystem
 {
     private void Update()
     {
         float xAxis = Input.GetAxis("Horizontal");
-
-        if (xAxis != previousAxis && drivingGear != null)
-        {
-            drivingGear.SetForFrame(driverSpeed * xAxis, driverTorque);
-            PropagateGroup(drivingGear, drivingGear.Neighbors, false);
-            PropagateGroup(drivingGear, drivingGear.Joints, true);
-            previousAxis = xAxis;
-        }
+        SetSystemSpeed(xAxis);
     }
-
 }

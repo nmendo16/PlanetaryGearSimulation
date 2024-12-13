@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7696408617641918704}
   - component: {fileID: 8071417397820847947}
   m_Layer: 0
-  m_Name: GeneratedGear
+  m_Name: PlanetGearGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   n_cogs: 0
-  obj_gear: {fileID: 1064252656644922223, guid: 216b7b26973124e40a168b5529b492e4, type: 3}
+  obj_gear: {fileID: 1064252656644922223, guid: 5ab70c5ef8f59ef41957b75f9276b69f, type: 3}
   obj_cog: {fileID: 4071019060757081122, guid: 08474363f35425147a3efec78c66c464, type: 3}
 --- !u!114 &1593680481748760066
 MonoBehaviour:

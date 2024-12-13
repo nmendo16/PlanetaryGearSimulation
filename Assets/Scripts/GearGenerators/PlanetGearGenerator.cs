@@ -7,7 +7,7 @@ using UnityEngine;
 Generates a basic gear taking a Prefab Gear and Cog as templates.
 Can be used from the editor or at runtime. 
 ***/
-public class GearGenerator : MonoBehaviour
+public class PlanetGearGenerator : MonoBehaviour
 {
 
     [Header("Settings")]

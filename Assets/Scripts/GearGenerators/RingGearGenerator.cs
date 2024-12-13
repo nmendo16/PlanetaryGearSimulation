@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 
-public class RingGearGenerator : GearGenerator
+public class RingGearGenerator : PlanetGearGenerator
 {
     [Header("Ring Gear Specifics")]
     [SerializeField]
@@ -35,7 +35,9 @@ public class RingGearGenerator : GearGenerator
         cogBodyScale.x += newRadius + teethSize;
         cogBodyScale.y += newRadius + teethSize;
 
+        Debug.Log(cogBodyScale);
         gearInScene.transform.localScale = cogBodyScale;
+        Debug.Log(gearInScene.transform.localScale);
 
         if (l_cogsInScene == null)
         {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -33,14 +31,14 @@ public class UIVisuals : MonoBehaviour
         driverPanel.SetActive(false);
         othersPanel.SetActive(false);
     }
-    public void SetCogsInformation(int no_cogs, int cogsSelected)
+    public void SetCogsInformation(int no_cogs, int noGearSelected)
     {
         sliderHolder.SetActive(true);
         this.cogsSlider.value = no_cogs;
         this.cogsText.text = no_cogs.ToString();
-        if (cogsSelected > 1)
+        if (noGearSelected > 1)
         {
-            this.cogsText.text += "(" + cogsSelected.ToString() + ")";
+            this.cogsText.text += "(" + noGearSelected.ToString() + ")";
         }
         UpdateNonEditables(0, no_cogs);
     }

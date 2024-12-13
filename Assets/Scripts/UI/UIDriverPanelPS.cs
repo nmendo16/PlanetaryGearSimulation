@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -31,18 +29,25 @@ public class UIDriverPanelPS : MonoBehaviour
     [Header("Settings")]
     [SerializeField]
     private float maximimPossibleSpeed = 999f;
-    
 
-    public string UISpeed { set 
-        { 
-            currentSpeed.text = value; 
-        } }
-    public string UICogs { set {
+
+    public string UISpeed
+    {
+        set
+        {
+            currentSpeed.text = value;
+        }
+    }
+    public string UICogs
+    {
+        set
+        {
             if (driverCogsWrapped.activeInHierarchy)
             {
                 driverCogs.text = value;
             }
-        } }
+        }
+    }
     public string UIMaxSpeed
     {
         get

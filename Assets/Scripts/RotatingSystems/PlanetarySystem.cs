@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlanetarySystem : GearSystem
@@ -55,7 +53,7 @@ public class PlanetarySystem : GearSystem
     }
     public void RefreshGearPositions()
     {
-        float combinedRadius = (sunGear.GetTotalRadius() + planetaryGears[0].GetBodyRadius());
+        float combinedRadius = sunGear.GetTotalRadius() + planetaryGears[0].GetBodyRadius();
         float hypothenuseMagnitude = Mathf.Sqrt(2 * (combinedRadius * combinedRadius)) / 2;
         Vector3 firstQuadrantGear = new(0, combinedRadius, 0);
         Vector3 thirdQuadrantGear = new(-hypothenuseMagnitude, -hypothenuseMagnitude, 0);
@@ -84,7 +82,12 @@ public class PlanetarySystem : GearSystem
             }
         }
     }
-    public void SelectPlanetGearGroup(Material selectMaterial, bool deselect)
+    /***
+    <summary>
+        Changes the material of a gear to symbolize selection. 
+    </summary>
+    ***/
+    public void VisuallySelectPlanetGroup(Material selectMaterial, bool deselect)
     {
         foreach (Gear planet in planetaryGears)
         {
@@ -97,6 +100,14 @@ public class PlanetarySystem : GearSystem
                 planet.SetMaterial(selectMaterial);
             }
         }
+    }
+    public void VisuallySelectPlanetGroup(string layerName)
+    {
+        foreach (Gear planet in planetaryGears)
+        {
+            planet.SetLayerAll(layerName);
+        }
+
     }
     public void RebuildSystem(PlanetarySystemElement changedGear, int newCogs)
     {
@@ -115,7 +126,6 @@ public class PlanetarySystem : GearSystem
                 this.planetGearCogs = newCogs;
                 gear.GenerateGear(newCogs);
                 gear.ResetMaterial();
-
             }
         }
         ringGear.DeleteGeneratedModel();
@@ -123,6 +133,7 @@ public class PlanetarySystem : GearSystem
         planetaryAxis.Cogs = ringGear.Cogs;
         ringGear.ResetMaterial();
         RefreshGearPositions();
+        this.previousAxis = 0;
 
     }
     public RotatingElement GetPlanetaryAxis()

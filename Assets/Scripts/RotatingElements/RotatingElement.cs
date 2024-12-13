@@ -16,7 +16,7 @@ public abstract class RotatingElement : MonoBehaviour
     protected bool setThisFrame = false;
     public float Torque { get { return torque; } private set { torque = value; } }
     public float Speed { get { return speed; } private set { speed = value; } }
-    public int Cogs { get { return n_cogs; }  set { n_cogs = value; } }
+    public int Cogs { get { return n_cogs; } set { n_cogs = value; } }
     public List<RotatingElement> Neighbors { get { return neighbors; } private set { neighbors = value; } }
     public List<RotatingElement> Joints { get { return joints; } private set { joints = value; } }
     public bool SetThisFrame { get { return setThisFrame; } private set { setThisFrame = value; } }

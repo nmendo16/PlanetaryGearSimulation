@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,10 +38,9 @@ public abstract class RotatingSystem : MonoBehaviour
         }
         if (Reciever.SetThisFrame) // was set THIS frame, go here. (AKA, in this same code execution thread. )
         {
-            if (SignificantlyDifferent(Reciever.Speed, speed)) // if the reducted speed is too different from its original. 
+            if (SignificantlyDifferent(Reciever.Speed, speed))
             {
                 Debug.Log($"{Reciever.name} blocks chain. ");
-                // block everything in the chain. 
             }
         }
         else
@@ -74,5 +72,22 @@ public abstract class RotatingSystem : MonoBehaviour
     public void SetDriverRotator(RotatingElement element)
     {
         this.drivingGear = element;
+    }
+    public void SetSystemSpeed(float multiplierValue)
+    {
+        if (multiplierValue != previousAxis && drivingGear != null)
+        {
+            drivingGear.SetForFrame(driverSpeed * multiplierValue, driverTorque);
+            PropagateGroup(drivingGear, drivingGear.Neighbors, false);
+            PropagateGroup(drivingGear, drivingGear.Joints, true);
+            previousAxis = multiplierValue;
+        }
+    }
+    public void StopSystem()
+    {
+        drivingGear.SetForFrame(0, driverTorque);
+        PropagateGroup(drivingGear, drivingGear.Neighbors, false);
+        PropagateGroup(drivingGear, drivingGear.Joints, true);
+        previousAxis = 0;
     }
 }

@@ -100,13 +100,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: GearTeeth
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ad3c6e8165e2c0d4ba67b85beb91cdd6, type: 3}
+      propertyPath: m_TagString
+      value: CogMesh
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ad3c6e8165e2c0d4ba67b85beb91cdd6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2860996670986678842}
   m_SourcePrefab: {fileID: 100100000, guid: ad3c6e8165e2c0d4ba67b85beb91cdd6, type: 3}
 --- !u!4 &1292412505854912376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ad3c6e8165e2c0d4ba67b85beb91cdd6, type: 3}
   m_PrefabInstance: {fileID: 1613743521884029075}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1919733004158205378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ad3c6e8165e2c0d4ba67b85beb91cdd6, type: 3}
+  m_PrefabInstance: {fileID: 1613743521884029075}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2860996670986678842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919733004158205378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8eb94b442704084fb5a688ad3cb15d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storeInTexcoordChannel: 1
+  cospatialVertexDistance: 0.01

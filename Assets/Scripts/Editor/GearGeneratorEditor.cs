@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 
-[CustomEditor(typeof(GearGenerator), true)]
+[CustomEditor(typeof(PlanetGearGenerator), true)]
 [CanEditMultipleObjects]
 public class GearGeneratorEditor : Editor
 {
@@ -17,7 +17,7 @@ public class GearGeneratorEditor : Editor
     }
     public override void OnInspectorGUI()
     {
-        GearGenerator GearGenerator = (GearGenerator)target;
+        PlanetGearGenerator GearGenerator = (PlanetGearGenerator)target;
         EditorGUILayout.PropertyField(noTeeth, new GUIContent("Number of Cogs"));
         EditorGUILayout.PropertyField(cogBody, new GUIContent("Gear's Body Template"));
         EditorGUILayout.PropertyField(cogTeeth, new GUIContent("Cog Template"));

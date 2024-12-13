@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 4670863410457253335, guid: 07fe09b7dc154c34086c04b2dfb6e773, type: 3}
     - target: {fileID: 3304740552117158052, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: m_Name
-      value: SunGear Variant
+      value: SunGearGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 4552357536729286549, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 7696408617641918704, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       propertyPath: me
       value: 
-      objectReference: {fileID: 6040309239090693033}
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1593680481748760066, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
     m_RemovedGameObjects: []
@@ -103,14 +103,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3304740552117158052, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6040309239090693033}
+      addedObject: {fileID: 2832338416215787990}
   m_SourcePrefab: {fileID: 100100000, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
 --- !u!1 &5168797044846049914 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3304740552117158052, guid: 3e3b908d0e66d4b478c4bed77d8f78dd, type: 3}
   m_PrefabInstance: {fileID: 7667252484500798174}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6040309239090693033
+--- !u!114 &2832338416215787990
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,12 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be55ea19439f8394bb7271c6b5bd5cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbors:
-  - {fileID: 0}
+  neighbors: []
   joints: []
-  torque: 0
+  torque: 50
   speed: 0
   n_cogs: 0
   setThisFrame: 0
-  defaultMaterial: {fileID: 2100000, guid: 6d650a18bd68ec249930fe43c6b740e3, type: 2}
+  defaultMaterial: {fileID: 0}
   gearType: 0

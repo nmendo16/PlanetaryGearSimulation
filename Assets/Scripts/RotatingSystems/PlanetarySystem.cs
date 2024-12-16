@@ -70,7 +70,6 @@ public class PlanetarySystem : GearSystem
             this.ringGear.LockRotation = true;
             this.planetaryGears[0].AddNeighbor(planetaryAxis);
             this.ringGear.RemoveNeighbor(this.planetaryGears[0]);
-            StopSystem();
         }
         else
         {
@@ -80,7 +79,6 @@ public class PlanetarySystem : GearSystem
                 this.ringGear.LockRotation = false;
                 this.planetaryGears[0].RemoveNeighbor(planetaryAxis);
                 this.ringGear.AddNeighbor(this.planetaryGears[0]);
-                StopSystem();
             }
         }
     }

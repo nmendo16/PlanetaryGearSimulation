@@ -64,7 +64,7 @@ public class PlanetGearGenerator : MonoBehaviour
         for (int i = 0; i < n_cogs; i++)
         {
             l_cogsInScene.Add(Instantiate(obj_cog, transform));
-            l_cogsInScene[i].transform.rotation = Quaternion.Euler(0, 0, step * i);
+            l_cogsInScene[i].transform.rotation = Quaternion.Euler(0, 0, i * step);
             l_cogsInScene[i].transform.position += l_cogsInScene[i].transform.up * radius;
         }
 

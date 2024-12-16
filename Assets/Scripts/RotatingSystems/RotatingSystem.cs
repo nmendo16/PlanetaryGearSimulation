@@ -85,7 +85,10 @@ public abstract class RotatingSystem : MonoBehaviour
     }
     public void StopSystem()
     {
-        drivingGear.SetForFrame(0, driverTorque);
+        if (drivingGear != null)
+        {
+            drivingGear.SetForFrame(0, driverTorque);
+        }
         PropagateGroup(drivingGear, drivingGear.Neighbors, false);
         PropagateGroup(drivingGear, drivingGear.Joints, true);
         previousAxis = 0;

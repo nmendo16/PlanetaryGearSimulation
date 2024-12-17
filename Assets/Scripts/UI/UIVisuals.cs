@@ -1,114 +1,151 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class UIVisuals : MonoBehaviour
 {
-    [Header("Information panels and holders")]
+    [Header("Sliders")]
     [SerializeField]
-    private GameObject sliderHolder;
+    private Slider sunSlider;
     [SerializeField]
-    private GameObject driverPanel;
+    private Slider planetSlider;
+    [Header("Gearbox Panel Reference")]
     [SerializeField]
-    private GameObject othersPanel;
-    [Header("Individual elements")]
-    [SerializeField]
-    private Slider cogsSlider;
-    [SerializeField]
-    private TextMeshProUGUI cogsText;
+    private GearboxPanel gearBoxManager;
 
-
-    private UIDriverPanelPS driverPanelManager;
-    private UIDriverPanelPS othersPanelManager;
-
-    public int SliderValue { get { return (int)cogsSlider.value; } }
-
-    private void Start()
+    public int SunSliderValue { set { sunSlider.value = value; } get { return (int)sunSlider.value; } }
+    public int PlanetSliderValue { set { planetSlider.value = value; } get { return (int)planetSlider.value; } }
+    public int SunCogDisplay { set { gearBoxManager.SunCogs = value.ToString(); } }
+    public int PlanetCogDisplay { set { gearBoxManager.PlanetCogs = value.ToString(); } }
+    public int RingCogDisplay { set { gearBoxManager.RingCogs = value.ToString(); } }
+    public float UpdatedSunSpeed
     {
-        driverPanelManager = driverPanel.GetComponent<UIDriverPanelPS>();
-        othersPanelManager = othersPanel.GetComponent<UIDriverPanelPS>();
-        sliderHolder.SetActive(false);
-        driverPanel.SetActive(false);
-        othersPanel.SetActive(false);
-    }
-    public void SetCogsInformation(int no_cogs, int noGearSelected)
-    {
-        sliderHolder.SetActive(true);
-        this.cogsSlider.value = no_cogs;
-        this.cogsText.text = no_cogs.ToString();
-        if (noGearSelected > 1)
+        set
         {
-            this.cogsText.text += "(" + noGearSelected.ToString() + ")";
+            gearBoxManager.SunSpeed = value.ToString();
         }
-        UpdateNonEditables(0, no_cogs);
-    }
-    public void OthersInformation(bool display, float torque = 0)
-    {
-        othersPanel.SetActive(display);
-        othersPanelManager.UISpeed = "0";
-        othersPanelManager.UITorque = torque.ToString();
-        othersPanelManager.ActivateRingGearPanels(false);
-        othersPanelManager.MaxSpeedWrapper(false);
-        othersPanelManager.CogsWrapper(display);
-    }
-    public void DriverInformation(bool display, bool hasCogs, float maxSpeed, float torque)
-    {
-        sliderHolder.SetActive(hasCogs);
-        driverPanel.SetActive(display);
-
-        driverPanelManager.UIMaxSpeed = maxSpeed.ToString();
-        driverPanelManager.UITorque = torque.ToString();
-        driverPanelManager.ActivateRingGearPanels(false); // assume that, baseline, is not a ring gear. 
-    }
-    public void ActivateExtraRingGearInfo(bool isLocked)
-    {
-        driverPanelManager.ActivateRingGearPanels(true);
-        driverPanelManager.IsRingGearLocked = isLocked;
-    }
-    public void UpdateNonEditables(float speed, float cogs, bool isDriver = true)
-    {
-        if (isDriver)
+        get
         {
-            if (driverPanel.activeInHierarchy)
+            return ParseStringToFloat(gearBoxManager.SunSpeed);
+        }
+    }
+    public float UpdatedPlanetSpeed
+    {
+        set
+        {
+            gearBoxManager.PlanetSpeed = value.ToString();
+        }
+        get
+        {
+            return ParseStringToFloat(gearBoxManager.PlanetSpeed);
+        }
+    }
+    public float UpdatedRingSpeed
+    {
+        set
+        {
+            gearBoxManager.RingSpeed = value.ToString();
+        }
+        get
+        {
+            return ParseStringToFloat(gearBoxManager.RingSpeed);
+        }
+    }
+    public float UpdatedSunTorque
+    {
+        set
+        {
+            gearBoxManager.SunTorque = value.ToString();
+        }
+        get
+        {
+            return ParseStringToFloat(gearBoxManager.SunTorque);
+        }
+    }
+    public float UpdatedPlanetTorque
+    {
+        set
+        {
+            gearBoxManager.PlanetTorque = value.ToString();
+        }
+        get
+        {
+            return ParseStringToFloat(gearBoxManager.PlanetTorque);
+        }
+    }
+    public float UpdatedRingTorque
+    {
+        set
+        {
+            gearBoxManager.RingTorque = value.ToString();
+        }
+        get
+        {
+            return ParseStringToFloat(gearBoxManager.RingTorque);
+        }
+    }
+    public bool IsRingLocked
+    {
+        set
+        {
+            gearBoxManager.LockRingGear = value;
+        }
+        get
+        {
+            return gearBoxManager.LockRingGear;
+        }
+    }
+    private float ParseStringToFloat(string value)
+    {
+        if (float.TryParse(value, out float parsedFloat))
+        {
+            return parsedFloat;
+        }
+        return 0f;
+    }
+    public void UpdateCurrentElements(List<PlanetarySystemElement> elementLists)
+    {
+        foreach (PlanetarySystemElement gear in elementLists)
+        {
+            string arrangedTorque = string.Format("{0:#0.0}", gear.Torque);
+
+            if (gear.gearType == GearTypePlSystem.RingGear)
             {
-                driverPanelManager.UISpeed = speed.ToString();
-                driverPanelManager.UICogs = cogs.ToString();
-            }
-        }
-        else
-        {
-            if (othersPanel.activeInHierarchy)
-            {
-                othersPanelManager.UISpeed = speed.ToString();
-                othersPanelManager.UICogs = cogs.ToString();
-            }
-        }
-    }
-    public void UpdateTorque(float torque, bool isDriver = true)
-    {
-        if (isDriver)
-        {
-            driverPanelManager.UITorque = torque.ToString();
-        }
-        else
-        {
-            othersPanelManager.UITorque = torque.ToString();
-        }
-    }
-    public float OnEditMaxSpeed()
-    {
-        driverPanelManager.UIMaxSpeed = driverPanelManager.UIMaxSpeed;
-        return float.Parse(driverPanelManager.UIMaxSpeed);
-    }
-    public float OnEditTorque()
-    {
-        driverPanelManager.UITorque = driverPanelManager.UITorque;
-        return float.Parse(driverPanelManager.UITorque);
-    }
-    public bool IsRingGearLocked()
-    {
-        return this.driverPanelManager.IsRingGearLocked;
-    }
+                if (this.IsRingLocked)
+                {
 
+                    gearBoxManager.SetCurrentElements("0", arrangedTorque, gear.gearType);
+                    return;
+                }
+            }
+            string arrangedSpeed = string.Format("{0:#0.0}", gear.Speed);
+            gearBoxManager.SetCurrentElements(arrangedSpeed, arrangedTorque, gear.gearType);
+        }
+    }
+    public void ParseSunSpeed(string sentence)
+    {
+
+    }
+    public void ParsePlanetSpeed(string sentence)
+    {
+
+    }
+    public void ParseRingSpeed(string sentence)
+    {
+
+    }
+    public void ParseSunTorque(string sentence)
+    {
+
+    }
+    public void ParsePlanetTorque(string sentence)
+    {
+
+    }
+    public void ParseRingTorque(string sentence)
+    {
+
+    }
 
 }

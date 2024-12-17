@@ -14,6 +14,8 @@ public abstract class RotatingSystem : MonoBehaviour
     public float DriverSpeed { get { return driverSpeed; } set { this.driverSpeed = value; } }
     public float DriverTorque { get { return driverTorque; } set { this.driverTorque = value; } }
 
+    public bool isMoving = false;
+
     protected float previousAxis = 0;
     // In Update
     /// <summary>
@@ -77,10 +79,15 @@ public abstract class RotatingSystem : MonoBehaviour
     {
         if (multiplierValue != previousAxis && drivingGear != null)
         {
+            isMoving = true;
             drivingGear.SetForFrame(driverSpeed * multiplierValue, driverTorque);
             PropagateGroup(drivingGear, drivingGear.Neighbors, false);
             PropagateGroup(drivingGear, drivingGear.Joints, true);
             previousAxis = multiplierValue;
+        }
+        else
+        {
+            isMoving = false;
         }
     }
     public void StopSystem()

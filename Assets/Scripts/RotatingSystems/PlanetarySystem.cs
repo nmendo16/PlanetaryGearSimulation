@@ -23,14 +23,35 @@ public class PlanetarySystem : GearSystem
     private int planetGearCogs;
     [SerializeField]
     private bool isRingGearLocked = false;
+    [Header("UI Reference")]
+    [SerializeField]
+    private UIManager ui_Manager;
 
     public bool IsRingGearLocked { get { return isRingGearLocked; } }
+
+    public PlanetarySystemElement SunGear { get { return this.sunGear; } }
+    public List<PlanetarySystemElement> PlanetGear { get { return this.planetaryGears; } }
+    public PlanetarySystemElement RingGear { get { return this.ringGear; } }
+    public List<PlanetarySystemElement> GearsReference
+    {
+        get
+        {
+            return new List<PlanetarySystemElement>()
+        {
+            sunGear,
+            planetaryGears[0],
+            ringGear
+        };
+        }
+    }
+
 
 
     private void Start()
     {
         GenerateSystem();
         LockRingGear(isRingGearLocked);
+        ui_Manager.InitializeVisuals(this);
     }
     public void GenerateSystem()
     {

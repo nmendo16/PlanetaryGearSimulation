@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,74 +11,63 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private string defaultLayerName = "Default";
     [Tooltip("Name of the default layer that all objects use. ")]
-    [SerializeField]
     private GearSystem gearSystem;
     [SerializeField]
     private UIVisuals visuals;
     [Header("Debug Information.")]
     [SerializeField]
     private PlanetarySystemElement currentSelected;
-    private Gear otherSelected;
     [SerializeField]
     private bool isGroupSelected = false;
-    [SerializeField]
-    private bool lockOthersPanel = false;
-    [SerializeField]
-    private bool isHovering = false;
 
-    // Update is called once per frame
+    private List<PlanetarySystemElement> gearsInSystem;
+
     void Update()
     {
-
-        if (Input.GetButtonDown("Click"))
+        if (gearSystem != null)
         {
-            if (EventSystem.current.IsPointerOverGameObject()) return;
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Input.GetButtonDown("Click"))
             {
-                if (hit.collider.CompareTag("Gear"))
+                if (EventSystem.current.IsPointerOverGameObject()) return;
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    PlanetarySystemElement element = hit.collider.GetComponentInParent<PlanetarySystemElement>();
-                    SelectSingleGear(element);
-                    if (otherSelected != null)
+                    if (hit.collider.CompareTag("Gear"))
                     {
-                        visuals.OthersInformation(false);
-                        lockOthersPanel = false;
-                        otherSelected = null;
+                        PlanetarySystemElement element = hit.collider.GetComponentInParent<PlanetarySystemElement>();
+                        SelectSingleGear(element);
                     }
-                }
-                else if (hit.collider.CompareTag("GearGroup"))
-                {
-                    if (otherSelected != null)
+                    else if (hit.collider.CompareTag("GearGroup"))
                     {
-                        visuals.OthersInformation(false);
-                        lockOthersPanel = false;
-                        otherSelected = null;
-                    }
-                    PlanetarySystemElement element = hit.collider.GetComponentInParent<PlanetarySystemElement>();
-                    if (currentSelected != null)
-                    {
-                        if (currentSelected != element)
+                        PlanetarySystemElement element = hit.collider.GetComponentInParent<PlanetarySystemElement>();
+                        if (currentSelected != null)
                         {
-                            currentSelected.SetLayerAll(defaultLayerName);
-                            currentSelected = element;
-                            SelectGroup();
+                            if (currentSelected != element)
+                            {
+                                currentSelected.SetLayerAll(defaultLayerName);
+                                currentSelected = element;
+                                SelectGroup();
+                            }
+                            else
+                            {
+                                if (isGroupSelected)
+                                {
+                                    if (gearSystem is PlanetarySystem planetSystem)
+                                    {
+                                        SelectSingleGear(element);
+                                    }
+                                }
+                            }
                         }
                         else
                         {
-                            if (isGroupSelected)
-                            {
-                                if (gearSystem is PlanetarySystem ps)
-                                {
-                                    SelectSingleGear(element);
-                                }
-                            }
+                            currentSelected = element;
+                            SelectGroup();
                         }
                     }
                     else
                     {
-                        currentSelected = element;
-                        SelectGroup();
+                        SelectNothing();
                     }
                 }
                 else
@@ -84,25 +75,32 @@ public class UIManager : MonoBehaviour
                     SelectNothing();
                 }
             }
-            else
+            // Every frame we have to update the current speed of each gear here:
+
+            if (gearSystem is PlanetarySystem ps)
             {
-                SelectNothing();
+                if (ps.isMoving)
+                    visuals.UpdateCurrentElements(ps.GearsReference);
             }
         }
-        if (Input.GetButtonDown("RightClick"))
-        {
-            LockOthersPanel(!lockOthersPanel);
-        }
-        if (currentSelected != null)
-        {
-            this.visuals.UpdateNonEditables(currentSelected.Speed, currentSelected.Cogs);
-        }
-        if (otherSelected != null)
-        {
-            this.visuals.UpdateNonEditables(otherSelected.Speed, otherSelected.Cogs, isDriver: false);
-            this.visuals.UpdateTorque(otherSelected.Torque, isDriver: false);
-        }
 
+    }
+    public void InitializeVisuals(GearSystem gearSystem)
+    {
+        this.gearSystem = gearSystem;
+        if (gearSystem is PlanetarySystem ps)
+        {
+            visuals.IsRingLocked = ps.IsRingGearLocked;
+            visuals.UpdatedSunSpeed = ps.DriverSpeed;
+            visuals.UpdatedPlanetSpeed = ps.DriverSpeed;
+            visuals.UpdatedRingSpeed = ps.DriverSpeed;
+            // Updated Cog Bars to display default values:
+            visuals.SunCogDisplay = ps.SunGear.Cogs;
+            visuals.SunSliderValue = ps.SunGear.Cogs;
+            visuals.PlanetCogDisplay = ps.PlanetGear[0].Cogs;
+            visuals.PlanetSliderValue = ps.PlanetGear[0].Cogs;
+            visuals.RingCogDisplay = ps.RingGear.Cogs;
+        }
     }
     private void SelectSingleGear(PlanetarySystemElement toBeSelected)
     {
@@ -135,34 +133,43 @@ public class UIManager : MonoBehaviour
             toBeSelected.SetLayerAll(outlinesLayerName);
             gearSystem.SetDriverRotator(toBeSelected);
         }
-        // after visually selecting the gear (by adding outlines), we need to see if we need to activate special UIs.
-        if (toBeSelected.gearType == GearTypePlSystem.RingGear && gearSystem is PlanetarySystem sys)
-        {
-            visuals.DriverInformation(true, false, gearSystem.DriverSpeed, gearSystem.DriverTorque);
-            visuals.ActivateExtraRingGearInfo(sys.IsRingGearLocked);
-        }
-        else
-        {
-            visuals.DriverInformation(true, true, gearSystem.DriverSpeed, gearSystem.DriverTorque);
-            visuals.SetCogsInformation(currentSelected.Cogs, 1);
-        }
     }
-    public void ChangeCogsInGear()
+    public void ChangeSunCogs()
     {
         if (gearSystem is PlanetarySystem ps)
         {
-            ps.RebuildSystem(currentSelected, visuals.SliderValue);
-            //When changing cogs, it rebuilds the system. This means we need to re-apply if the gear was previouslt selected.
-            if (isGroupSelected)
+            ps.RebuildSystem(ps.SunGear, visuals.SunSliderValue);
+            if (currentSelected != null)
             {
-                ps.VisuallySelectPlanetGroup(outlinesLayerName);
-                visuals.SetCogsInformation(currentSelected.Cogs, 3);
+                if (currentSelected.gearType == GearTypePlSystem.SunGear)
+                    currentSelected.SetLayerAll(outlinesLayerName);
             }
-            else
+            visuals.SunCogDisplay = ps.SunGear.Cogs;
+            visuals.RingCogDisplay = ps.RingGear.Cogs;
+        }
+    }
+    public void ChangePlanetCogs()
+    {
+        if (gearSystem is PlanetarySystem ps)
+        {
+            ps.RebuildSystem(ps.PlanetGear[0], visuals.PlanetSliderValue);
+            if (currentSelected != null)
             {
-                currentSelected.SetLayerAll(outlinesLayerName);
-                visuals.SetCogsInformation(currentSelected.Cogs, 1);
+                if (currentSelected.gearType == GearTypePlSystem.PlanetaryGear ||
+                currentSelected.gearType == GearTypePlSystem.PlanetaryAxis)
+                {
+                    if (isGroupSelected)
+                    {
+                        ps.VisuallySelectPlanetGroup(outlinesLayerName);
+                    }
+                    else
+                    {
+                        currentSelected.SetLayerAll(outlinesLayerName);
+                    }
+                }
             }
+            visuals.PlanetCogDisplay = ps.PlanetGear[0].Cogs; //TODO: Needs to change. Info should tell if its individual or all gears. 
+            visuals.RingCogDisplay = ps.RingGear.Cogs;
         }
     }
     private void SelectGroup()
@@ -173,8 +180,6 @@ public class UIManager : MonoBehaviour
             ps.VisuallySelectPlanetGroup(outlinesLayerName);
             ps.SetDriverRotator(ps.GetPlanetaryAxis());
         }
-        visuals.DriverInformation(true, true, gearSystem.DriverSpeed, gearSystem.DriverTorque);
-        visuals.SetCogsInformation(currentSelected.Cogs, 3);
         gearSystem.StopSystem(); // -- its better to reset the speed everytime there's a switch in gears.
     }
     private void SelectNothing()
@@ -192,61 +197,62 @@ public class UIManager : MonoBehaviour
                 currentSelected.SetLayerAll(defaultLayerName);
             gearSystem.StopSystem(); // -- its better to reset the speed everytime there's a switch in gears.
         }
-        visuals.DriverInformation(false, false, gearSystem.DriverSpeed, gearSystem.DriverTorque);
         currentSelected = null;
         isGroupSelected = false;
         gearSystem.SetDriverRotator(null);
     }
-    public void ChangeMaxSpeed()
+    public void ChangeDriverSpeed()
     {
-        this.gearSystem.DriverSpeed = visuals.OnEditMaxSpeed();
-
+        // This is needed as we don't want to change the system's speed from a gear we haven't selected.
+        if (currentSelected != null)
+        {
+            switch (currentSelected.gearType)
+            {
+                case GearTypePlSystem.SunGear:
+                    this.gearSystem.DriverSpeed = visuals.UpdatedSunSpeed;
+                    break;
+                case GearTypePlSystem.PlanetaryGear:
+                case GearTypePlSystem.PlanetaryAxis:
+                    this.gearSystem.DriverSpeed = visuals.UpdatedPlanetSpeed;
+                    break;
+                case GearTypePlSystem.RingGear:
+                    {
+                        if (gearSystem is PlanetarySystem ps)
+                        {
+                            if (!ps.IsRingGearLocked)
+                                this.gearSystem.DriverSpeed = visuals.UpdatedRingSpeed;
+                            else
+                                this.gearSystem.DriverSpeed = 0;
+                        }
+                        break;
+                    }
+            }
+        }
     }
     public void ChangeTorque()
     {
-        this.gearSystem.DriverTorque = visuals.OnEditTorque();
+        if (currentSelected != null)
+        {
+            switch (currentSelected.gearType)
+            {
+                case GearTypePlSystem.SunGear:
+                    this.gearSystem.DriverTorque = visuals.UpdatedSunTorque;
+                    break;
+                case GearTypePlSystem.PlanetaryGear:
+                case GearTypePlSystem.PlanetaryAxis:
+                    this.gearSystem.DriverTorque = visuals.UpdatedPlanetTorque;
+                    break;
+                case GearTypePlSystem.RingGear:
+                    this.gearSystem.DriverTorque = visuals.UpdatedRingTorque;
+                    break;
+            }
+        }
     }
     public void OnChangeRingGearLock()
     {
         if (gearSystem is PlanetarySystem ps)
         {
-            ps.LockRingGear(this.visuals.IsRingGearLocked());
+            ps.LockRingGear(this.visuals.IsRingLocked);
         }
     }
-    public void OthersPanel(bool show, Gear elementSelected)
-    {
-        if (currentSelected != elementSelected || currentSelected == null)
-        {
-            isHovering = show;
-            if (!lockOthersPanel)
-            {
-                if (isHovering)
-                {
-                    visuals.OthersInformation(show, elementSelected.Torque);
-                    otherSelected = elementSelected;
-                }
-                else
-                {
-                    visuals.OthersInformation(show);
-                    otherSelected = null;
-                }
-            }
-        }
-    }
-    public void LockOthersPanel(bool lockOthers)
-    {
-        if (otherSelected != null)
-        {
-            lockOthersPanel = lockOthers;
-            if (!lockOthersPanel)
-            {
-                if (!isHovering)
-                {
-                    visuals.OthersInformation(false);
-                    otherSelected = null;
-                }
-            }
-        }
-    }
-
 }

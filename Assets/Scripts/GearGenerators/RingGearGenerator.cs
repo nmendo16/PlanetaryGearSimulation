@@ -27,17 +27,13 @@ public class RingGearGenerator : PlanetGearGenerator
             mesh_gear = obj_gear.GetComponentInChildren<MeshRenderer>();
         }
         float gearBodyRadius = (mesh_gear.bounds.size / 2).y; // -- diameter / 2, get its y value. 
-        Debug.Log(gearBodyRadius);
 
         gearInScene = Instantiate(obj_gear, transform);
         Vector3 cogBodyScale = new(radius * 1.2f, radius * 1.18f, 1);
         float newRadius = cogBodyScale.z * outerRingRatio / 2;
         cogBodyScale.x += newRadius + teethSize;
         cogBodyScale.y += newRadius + teethSize;
-
-        Debug.Log(cogBodyScale);
         gearInScene.transform.localScale = cogBodyScale;
-        Debug.Log(gearInScene.transform.localScale);
 
         if (l_cogsInScene == null)
         {

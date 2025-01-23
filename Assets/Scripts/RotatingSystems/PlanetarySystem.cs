@@ -105,10 +105,15 @@ public class PlanetarySystem : GearSystem
     }
     protected override void Update()
     {
+        float xAxis = Input.GetAxis("Horizontal");
+        SetSystemSpeed(xAxis);
+    }
+    public override void SetSystemSpeed(float normalizedValue)
+    {
+        Debug.Log(normalizedValue);
         if (!isRingGearLocked || this.drivingGear != ringGear)
         {
-            float xAxis = Input.GetAxis("Horizontal");
-            SetSystemSpeed(xAxis);
+            base.SetSystemSpeed(normalizedValue);
         }
     }
 

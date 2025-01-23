@@ -40,30 +40,8 @@ public class UIManager : MonoBehaviour
                     else if (hit.collider.CompareTag("GearGroup"))
                     {
                         PlanetarySystemElement element = hit.collider.GetComponentInParent<PlanetarySystemElement>();
-                        if (currentSelected != null)
-                        {
-                            if (currentSelected != element)
-                            {
-                                currentSelected.SetLayerAll(defaultLayerName);
-                                currentSelected = element;
-                                SelectGroup();
-                            }
-                            else
-                            {
-                                if (isGroupSelected)
-                                {
-                                    if (gearSystem is PlanetarySystem planetSystem)
-                                    {
-                                        SelectSingleGear(element);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            currentSelected = element;
-                            SelectGroup();
-                        }
+                        SelectPlanetaryGroup(element);
+
                     }
                     else
                     {
@@ -100,6 +78,59 @@ public class UIManager : MonoBehaviour
             visuals.PlanetCogDisplay = ps.PlanetGear[0].Cogs;
             visuals.PlanetSliderValue = ps.PlanetGear[0].Cogs;
             visuals.RingCogDisplay = ps.RingGear.Cogs;
+        }
+    }
+    /// <summary>
+    /// This function is needed as we want to allow reuse of code when triggered outside of code due to a event or trigger.
+    /// </summary>
+    /// <param name="gameObject"></param>
+    public void SelectSingleGear(GameObject gameObject)
+    {
+        if (currentSelected != null)
+        {
+            SelectNothing();
+        }
+        if (gameObject.TryGetComponent<PlanetarySystemElement>(out PlanetarySystemElement element))
+        {
+            SelectSingleGear(element);
+        }
+    }
+    public void SelectPlanetaryGroup(GameObject gameObject)
+    {
+        if (currentSelected != null)
+        {
+            SelectNothing();
+        }
+        if (gameObject.TryGetComponent<PlanetarySystemElement>(out PlanetarySystemElement element))
+        {
+            SelectPlanetaryGroup(element);
+        }
+    }
+    private void SelectPlanetaryGroup(PlanetarySystemElement element)
+    {
+        if (currentSelected != null)
+        {
+            if (currentSelected != element)
+            {
+                currentSelected.SetLayerAll(defaultLayerName);
+                currentSelected = element;
+                SelectGroup();
+            }
+            else
+            {
+                if (isGroupSelected)
+                {
+                    if (gearSystem is PlanetarySystem planetSystem)
+                    {
+                        SelectSingleGear(element);
+                    }
+                }
+            }
+        }
+        else
+        {
+            currentSelected = element;
+            SelectGroup();
         }
     }
     private void SelectSingleGear(PlanetarySystemElement toBeSelected)

@@ -75,15 +75,15 @@ public abstract class RotatingSystem : MonoBehaviour
     {
         this.drivingGear = element;
     }
-    public void SetSystemSpeed(float multiplierValue)
+    public virtual void SetSystemSpeed(float normalizedValue)
     {
-        if (multiplierValue != previousAxis && drivingGear != null)
+        if (normalizedValue != previousAxis && drivingGear != null)
         {
             isMoving = true;
-            drivingGear.SetForFrame(driverSpeed * multiplierValue, driverTorque);
+            drivingGear.SetForFrame(driverSpeed * normalizedValue, driverTorque);
             PropagateGroup(drivingGear, drivingGear.Neighbors, false);
             PropagateGroup(drivingGear, drivingGear.Joints, true);
-            previousAxis = multiplierValue;
+            previousAxis = normalizedValue;
         }
         else
         {

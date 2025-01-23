@@ -24,5 +24,5 @@ Due to the properties of Github Pages, we need to take into account the followin
 </ul>
 
 <h2>Deployment</h2>
-The current deployed version of this fork is at: https://jpablo9988.github.io/PlanetaryGearSimulation/
+The current deployed version of this fork is at: https://jpablo9988.github.io/PlanetaryGearSimulation/ </br>
 As this is a Centennial College OER project, feel free to visit that fork for the most up-to-date version of the project, which can be seen here: TBD.

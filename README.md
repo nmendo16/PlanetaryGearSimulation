@@ -22,3 +22,7 @@ Due to the properties of Github Pages, we need to take into account the followin
   <li>The current build folder is a_build. Whenever you're ready to publish for Github pages, transfer the <b>contents</b> of this folder to the root location and replace any old builds already located here.</li>
   <li>The contents inside the a_build folder shoulder be two folders, TemplateData and Build and an index.html file. </li>
 </ul>
+
+<h2>Deployment</h2>
+The current deployed version of this fork is at: https://jpablo9988.github.io/PlanetaryGearSimulation/
+As this is a Centennial College OER project, feel free to visit that fork for the most up-to-date version of the project, which can be seen here: TBD.

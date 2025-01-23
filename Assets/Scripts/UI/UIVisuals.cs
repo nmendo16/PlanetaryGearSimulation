@@ -13,6 +13,8 @@ public class UIVisuals : MonoBehaviour
     [Header("Gearbox Panel Reference")]
     [SerializeField]
     private GearboxPanel gearBoxManager;
+    [SerializeField]
+    private GameObject infoPanel;
 
     public int SunSliderValue { set { sunSlider.value = value; } get { return (int)sunSlider.value; } }
     public int PlanetSliderValue { set { planetSlider.value = value; } get { return (int)planetSlider.value; } }
@@ -123,29 +125,21 @@ public class UIVisuals : MonoBehaviour
             gearBoxManager.SetCurrentElements(arrangedSpeed, arrangedTorque, gear.gearType);
         }
     }
-    public void ParseSunSpeed(string sentence)
-    {
 
+    private void Awake()
+    {
+        infoPanel.SetActive(false);
     }
-    public void ParsePlanetSpeed(string sentence)
+    private void Update()
     {
-
+        if (Input.GetButtonDown("Cancel"))
+        {
+            ActivateInformationPanel();
+        }
     }
-    public void ParseRingSpeed(string sentence)
+    public void ActivateInformationPanel()
     {
-
-    }
-    public void ParseSunTorque(string sentence)
-    {
-
-    }
-    public void ParsePlanetTorque(string sentence)
-    {
-
-    }
-    public void ParseRingTorque(string sentence)
-    {
-
+        infoPanel.SetActive(!infoPanel.activeSelf);
     }
 
 }

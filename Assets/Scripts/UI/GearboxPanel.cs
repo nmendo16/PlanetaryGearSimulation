@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class GearboxPanel : MonoBehaviour
 {
     [Header("Sun Gear")]
@@ -46,6 +47,7 @@ public class GearboxPanel : MonoBehaviour
         planetGearsCurrentSpeed.interactable = false;
         ringGearCurrentSpeed.interactable = false;
         ringGearCogs.interactable = false;
+        GetComponent<CanvasGroup>().interactable = false;
     }
     /// <summary>
     /// Attributes that interact directly with the User Input and refreshes the UI values when any change is registered.
@@ -197,7 +199,6 @@ public class GearboxPanel : MonoBehaviour
             return "0";
         }
     }
-
 
 
 }

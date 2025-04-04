@@ -23,6 +23,14 @@ public abstract class RotatingElement : MonoBehaviour
 
     public bool LockRotation { get; set; }
 
+    void OnEnable()
+    {
+        UIManager.StopGears += StopGear;
+    }
+    void OnDisable()
+    {
+        UIManager.StopGears += StopGear;
+    }
     protected virtual void Update()
     {
         if (Speed != 0 && !LockRotation)
@@ -43,5 +51,9 @@ public abstract class RotatingElement : MonoBehaviour
     {
         yield return 0;
         SetThisFrame = false;
+    }
+    public void StopGear()
+    {
+        Speed = 0f;
     }
 }

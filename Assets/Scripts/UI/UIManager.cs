@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     private bool isGroupSelected = false;
 
     private List<PlanetarySystemElement> gearsInSystem;
+    public static event Action StopGears;
 
     void Update()
     {
@@ -226,7 +228,8 @@ public class UIManager : MonoBehaviour
             }
             else
                 currentSelected.SetLayerAll(defaultLayerName);
-            gearSystem.StopSystem(); // -- its better to reset the speed everytime there's a switch in gears.
+            gearSystem.StopSystem();
+            StopGears?.Invoke();
         }
         currentSelected = null;
         isGroupSelected = false;

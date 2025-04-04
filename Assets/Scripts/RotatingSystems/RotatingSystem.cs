@@ -75,9 +75,10 @@ public abstract class RotatingSystem : MonoBehaviour
     {
         this.drivingGear = element;
     }
-    public virtual void SetSystemSpeed(float normalizedValue)
+    public virtual void SetSystemSpeed(float normalizedValue, bool byButton = false)
     {
-        if (normalizedValue != previousAxis && drivingGear != null)
+        Debug.Log($"RotatingSystem.SetSystemSpeed({normalizedValue}) drivingGear: {drivingGear}");
+        if ((normalizedValue != previousAxis || byButton) && drivingGear != null)
         {
             isMoving = true;
             drivingGear.SetForFrame(driverSpeed * normalizedValue, driverTorque);

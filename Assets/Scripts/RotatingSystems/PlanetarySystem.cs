@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,14 +45,21 @@ public class PlanetarySystem : GearSystem
         };
         }
     }
-
-
-
+    // ---- Event System ----
+    public static event Action<bool> IsMovedByInputEvent;
     private void Start()
     {
         GenerateSystem();
         LockRingGear(isRingGearLocked);
         ui_Manager.InitializeVisuals(this);
+    }
+    void OnEnable()
+    {
+        MovementButtons.IsMovedByButtonEvent += BeingMovedByButton;
+    }
+    void OnDisable()
+    {
+        MovementButtons.IsMovedByButtonEvent -= BeingMovedByButton;
     }
     public void GenerateSystem()
     {
@@ -103,18 +111,26 @@ public class PlanetarySystem : GearSystem
             }
         }
     }
+    private bool _beingMovedByButton = false;
     protected override void Update()
     {
-        float xAxis = Input.GetAxis("Horizontal");
-        SetSystemSpeed(xAxis);
+        if (!_beingMovedByButton)
+        {
+            float xAxis = Input.GetAxis("Horizontal");
+            IsMovedByInputEvent?.Invoke(xAxis != 0);
+            SetSystemSpeed(xAxis, false);
+        }
     }
-    public override void SetSystemSpeed(float normalizedValue)
+    public override void SetSystemSpeed(float normalizedValue, bool byButton)
     {
-        Debug.Log(normalizedValue);
         if (!isRingGearLocked || this.drivingGear != ringGear)
         {
-            base.SetSystemSpeed(normalizedValue);
+            base.SetSystemSpeed(normalizedValue, byButton);
         }
+    }
+    private void BeingMovedByButton(bool value)
+    {
+        _beingMovedByButton = value;
     }
 
     /***

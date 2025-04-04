@@ -13,19 +13,51 @@ public class MovementButtons : MonoBehaviour
     private PlanetarySystem planetarySystem;
     private float targetValue = 0f;
     private float currentValue = 0f;
+    private bool isInputBeingUsed = false;
+    private bool isPlaying = false;
+    public static event System.Action<bool> IsMovedByButtonEvent;
 
-    /*private void Update()
+    void OnEnable()
     {
-        if (targetValue == 0f) currentValue = 0f;
-        else if (Mathf.Abs(currentValue) < Mathf.Abs(targetValue))
+        PlanetarySystem.IsMovedByInputEvent += InputBeingUsed;
+        UIManager.StopGears += StopGears;
+    }
+    void OnDisable()
+    {
+        PlanetarySystem.IsMovedByInputEvent -= InputBeingUsed;
+        UIManager.StopGears -= StopGears;
+    }
+    private void Update()
+    {
+        if (!isInputBeingUsed)
         {
-            currentValue += targetValue * speed * Time.deltaTime;
+            if (targetValue == 0f) currentValue = 0f;
+            else if (Mathf.Abs(currentValue) < Mathf.Abs(targetValue))
+            {
+                currentValue += targetValue * speed * Time.deltaTime;
+            }
+            Debug.Log(currentValue);
+            planetarySystem.SetSystemSpeed(currentValue, true);
         }
-        Debug.Log(currentValue);
-        planetarySystem.SetSystemSpeed(currentValue);
-    }*/
+    }
     public void MoveGears(float targetValue)
     {
         this.targetValue = targetValue;
+        IsMovedByButtonEvent?.Invoke(targetValue != 0f);
+    }
+    public void PlayGears(float targetValue)
+    {
+        isPlaying = !isPlaying;
+        this.targetValue = isPlaying ? targetValue : 0f;
+        IsMovedByButtonEvent?.Invoke(targetValue != 0f);
+    }
+    public void StopGears()
+    {
+        targetValue = 0f;
+        IsMovedByButtonEvent?.Invoke(false);
+    }
+    public void InputBeingUsed(bool isInputBeingUsed)
+    {
+        this.isInputBeingUsed = isInputBeingUsed;
     }
 }

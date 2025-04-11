@@ -6898,6 +6898,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 703495849450687069, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
+      propertyPath: m_text
+      value: 'Number of Teeth:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 703495849450687069, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
+      propertyPath: m_margin.z
+      value: -20.753819
+      objectReference: {fileID: 0}
     - target: {fileID: 715007133234690552, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6945,6 +6953,14 @@ PrefabInstance:
     - target: {fileID: 840167164930895342, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 850739827110882976, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
+      propertyPath: m_text
+      value: 'Number of Teeth:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 850739827110882976, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
+      propertyPath: m_margin.z
+      value: -26.121227
       objectReference: {fileID: 0}
     - target: {fileID: 873113034720997114, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7694,6 +7710,14 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1982456751}
+    - target: {fileID: 8536483416567779967, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
+      propertyPath: m_text
+      value: 'Number of Teeth:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536483416567779967, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
+      propertyPath: m_margin.z
+      value: -23.616512
+      objectReference: {fileID: 0}
     - target: {fileID: 8600183541141341631, guid: faad94910cc37534ba0a7c244c55a10e, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -50,7 +50,7 @@ public class PlanetarySystem : GearSystem
     private void Start()
     {
         GenerateSystem();
-        LockRingGear(isRingGearLocked);
+        LockRingGear();
         ui_Manager.InitializeVisuals(this);
     }
     void OnEnable()
@@ -91,25 +91,14 @@ public class PlanetarySystem : GearSystem
         planetaryGears[1].transform.localPosition = thirdQuadrantGear;
         planetaryGears[2].transform.localPosition = fourthQuadrantGear;
     }
-    public void LockRingGear(bool lockRingGear)
+    public void LockRingGear()
     {
-        if (lockRingGear)
-        {
-            isRingGearLocked = true;
-            this.ringGear.LockRotation = true;
-            this.planetaryGears[0].AddNeighbor(planetaryAxis);
-            this.ringGear.RemoveNeighbor(this.planetaryGears[0]);
-        }
-        else
-        {
-            if (isRingGearLocked == true)
-            {
-                isRingGearLocked = false;
-                this.ringGear.LockRotation = false;
-                this.planetaryGears[0].RemoveNeighbor(planetaryAxis);
-                this.ringGear.AddNeighbor(this.planetaryGears[0]);
-            }
-        }
+
+        isRingGearLocked = false; // Ensure the ring gear is not locked
+        this.ringGear.LockRotation = false; // Allow the ring gear to rotate
+        this.planetaryGears[0].AddNeighbor(planetaryAxis); // Ensure connection to planetary axis
+        this.ringGear.AddNeighbor(this.planetaryGears[0]); // Ensure connection to the first planetary gear
+
     }
     private bool _beingMovedByButton = false;
     protected override void Update()

@@ -286,7 +286,7 @@ public class UIManager : MonoBehaviour
     {
         if (gearSystem is PlanetarySystem ps)
         {
-            ps.LockRingGear(this.visuals.IsRingLocked);
+            ps.LockRingGear();
         }
     }
 }

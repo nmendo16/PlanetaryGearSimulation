@@ -1,0 +1,102 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\assets\\scripts\\rotatingsystems\\planetarysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rotatingsystems\\planetarysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|c:\\users\\nmloo\\documents\\oer lab\\gitlab\\oerplanetarygearsimulation\\assets\\scripts\\ui\\movementbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\movementbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\assets\\scripts\\ui\\gearboxpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\gearboxpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\assets\\scripts\\ui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\assets\\scripts\\rotatingsystems\\rotatingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E2CFC0D-0F65-7D28-B5F4-D4BC9AA76B95}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\rotatingsystems\\rotatingsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RotatingSystem.cs",
+              "DocumentMoniker": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\RotatingSystems\\RotatingSystem.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\RotatingSystems\\RotatingSystem.cs",
+              "ToolTip": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\RotatingSystems\\RotatingSystem.cs",
+              "RelativeToolTip": "Assets\\Scripts\\RotatingSystems\\RotatingSystem.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAYwGUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T02:26:12.804Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlanetarySystem.cs",
+              "DocumentMoniker": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\RotatingSystems\\PlanetarySystem.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\RotatingSystems\\PlanetarySystem.cs",
+              "ToolTip": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\RotatingSystems\\PlanetarySystem.cs",
+              "RelativeToolTip": "Assets\\Scripts\\RotatingSystems\\PlanetarySystem.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAwwFkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T00:10:27.945Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GearboxPanel.cs",
+              "DocumentMoniker": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\UI\\GearboxPanel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\GearboxPanel.cs",
+              "ToolTip": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\UI\\GearboxPanel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\GearboxPanel.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T23:49:05.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UIManager.cs",
+              "DocumentMoniker": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\UI\\UIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\UIManager.cs",
+              "ToolTip": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\UI\\UIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\UIManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T23:48:21.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MovementButtons.cs",
+              "DocumentMoniker": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\UI\\MovementButtons.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\MovementButtons.cs",
+              "ToolTip": "C:\\Users\\nmloo\\Documents\\OER Lab\\gitLAB\\OERPlanetaryGearSimulation\\Assets\\Scripts\\UI\\MovementButtons.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UI\\MovementButtons.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T23:38:17.18Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
